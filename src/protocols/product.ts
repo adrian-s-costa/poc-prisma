@@ -3,6 +3,7 @@ export type ProductEntity = {
     nome: string,
     descricao: string,
     quantidade: number
+    lojaid: number
 }
 
 export type Product = Omit<ProductEntity, "id">

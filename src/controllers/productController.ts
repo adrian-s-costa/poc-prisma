@@ -27,7 +27,7 @@ export async function deleteProduct(req: Request, res: Response): Promise<QueryR
     try{
         const idProduct = parseInt(req.params.productId);
         const result = await deleteUniqueProduct(idProduct);
-        return res.status(result.status).send(result.message);
+        return res.status(result.message == "Nenhum produto foi encontrado com esse ID" ? 404 : 200).send(result.message);
     }catch{
         return res.sendStatus(404);
     }
@@ -38,7 +38,7 @@ export async function updateProduct(req: Request, res: Response): Promise<QueryR
         const idProduct = parseInt(req.params.productId);
         const prodToUpdate = req.body
         const result = await updateUniqueProduct(prodToUpdate, idProduct);
-        return res.status(result.status).send(result.message);
+        return res.status(result.message == "Nenhum produto foi encontrado com esse ID" ? 404 : 200).send(result.message);
     }catch{
         return res.sendStatus(404);
     }

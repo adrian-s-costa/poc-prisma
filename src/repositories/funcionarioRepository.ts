@@ -1,22 +1,22 @@
 import prisma from "../database/pg.js";
 import { QueryResult } from "pg";
-import { ProductEntity, ProductUpdate } from "../protocols/product.js";
-import { Product } from "../protocols/product.js";
+import { FuncToUpdate, FuncEntity, Func } from "../protocols/funcionario";
+import { funcionarios } from "@prisma/client"
 
-export async function allProducts(): Promise<QueryResult<ProductEntity>> {
+export async function allFuncs(): Promise<QueryResult<FuncEntity>> {
     //const products = await connection.query("SELECT * FROM produtos;");
-    return await prisma.produtos.findMany();
+    return await prisma.funcionarios.findMany();
 }
 
-export async function allProductsQuery(): Promise<QueryResult<ProductEntity>> {
+export async function allFuncsQuery(): Promise<QueryResult<FuncEntity>> {
     //const products = await connection.query("SELECT * FROM produtos ORDER BY quantidade DESC;");
     // return products.rows;
 }
 
-export async function insertProduct(newProduct: Product): Promise<QueryResult<ProductEntity>> {
+export async function insertFuncionario(newFunc: funcionarios): Promise<QueryResult<FuncEntity>> {
     try{
-        return await prisma.produtos.create({
-            data: newProduct
+        return await prisma.funcionarios.create({
+            data: newFunc
         });
         //return await connection.query("INSERT INTO produtos (nome, descricao, quantidade) VALUES ($1, $2, $3);", [newProduct.nome, newProduct.descricao, newProduct.quantidade]);
     }catch{
@@ -24,12 +24,12 @@ export async function insertProduct(newProduct: Product): Promise<QueryResult<Pr
     }
 }
 
-export async function deleteProduct(id: number): Promise<QueryResult<ProductEntity>> {
+export async function deleteFunc(id: number): Promise<QueryResult<FuncEntity>> {
     try{
         //return await connection.query("DELETE FROM produtos WHERE id = $1;", [id]);
-        return await prisma.produtos.delete({
+        return await prisma.funcionarios.delete({
             where:{
-                id_produto: id
+                id_funcionario: id
             }
         })
     }catch{
@@ -37,11 +37,11 @@ export async function deleteProduct(id: number): Promise<QueryResult<ProductEnti
     }
 }
 
-export async function updateProduct(body: ProductUpdate, id: number): Promise<QueryResult<ProductEntity>> {
+export async function updateFunc(body: FuncToUpdate, id: number): Promise<QueryResult<FuncEntity>> {
     try{
-        return await prisma.produtos.update({
+        return await prisma.funcionarios.update({
             where: {
-                id_produto: id
+                id_funcionario: id
             },
             data: body
         });

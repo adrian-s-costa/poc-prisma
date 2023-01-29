@@ -8,8 +8,26 @@ datasource db {
 }
 
 model produtos {
-  id         Int    @id @default(autoincrement())
-  nome       String @unique @db.Char(30)
-  descricao  String @db.Char(100)
-  quantidade Int    @default(0)
+  id_produto Int    @id @default(autoincrement())
+  nome       String @db.VarChar
+  descricao  String @db.VarChar
+  quantidade Int
+  lojaid     Int
+  lojas      lojas  @relation(fields: [lojaid], references: [id_loja], onDelete: NoAction, onUpdate: NoAction, map: "fk_loja")
+}
+
+model lojas {
+  id_loja      Int            @id @default(autoincrement())
+  nome         String         @db.VarChar
+  endereco     String         @db.VarChar
+  funcionarios funcionarios[]
+  produtos     produtos[]
+}
+
+model funcionarios {
+  id_funcionario Int    @id @default(autoincrement())
+  nome           String @db.VarChar
+  cargo          String @db.VarChar
+  lojaid         Int
+  lojas          lojas  @relation(fields: [lojaid], references: [id_loja], onDelete: NoAction, onUpdate: NoAction, map: "fk_loja")
 }

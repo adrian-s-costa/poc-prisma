@@ -27,12 +27,10 @@ export async function deleteUniqueProduct(id: number): Promise<QueryResult<Produ
         const productDeleted = await deleteProduct(id);
         if(productDeleted){
             return {
-                status: 200,
                 message: `Produto deletado com sucesso, linha deletada: ${productDeleted}`
             }
         }
         return {
-            status: 404,
             message: "Nenhum produto foi encontrado com esse ID"
         };
     }catch{
@@ -45,12 +43,10 @@ export async function updateUniqueProduct(body: ProductUpdate, id: number): Prom
         const productUpdated = await updateProduct(body, id);
         if(productUpdated){
             return {
-                status: 200,
-                message: `Produto deletado com sucesso, linha deletada: ${productUpdated}`
+                message: `Produto atualizado com sucesso, linha atualizada: ${productUpdated}`
             }
         }
         return {
-            status: 404,
             message: "Nenhum produto foi encontrado com esse ID"
         };    
     }catch{
